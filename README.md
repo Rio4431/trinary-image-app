@@ -1,51 +1,52 @@
 # Grayscale Trinarization Desktop App
 
-Python / Tkinterで作成した、画像を黒・グレー・白の3クラスへ分類するデスクトップアプリです。  
-日本語 / English のUI切り替えに対応し、複数画像の一括処理、2しきい値版の大津法、ノイズ除去、3値モルフォロジー、CSV / Excel / ZIP出力を備えています。
+A Python/Tkinter desktop application for classifying grayscale image pixels into three classes: black, gray, and white.
+
+The application supports Japanese / English UI switching, batch image processing, a two-threshold Otsu method, trinary denoising and morphology, customizable display colors, and CSV / Excel / ZIP export.
 
 ## Features
 
-- 日本語 / English UI
-- TkinterベースのシンプルなデスクトップGUI
-- 複数画像の読み込み・複数選択削除
-- ドラッグ＆ドロップ（`tkinterdnd2` 利用時）
-- クリップボード画像の貼り付け
-- 2つのしきい値によるグレースケール3値化
-- 初期値
+- Japanese / English UI
+- Simple Tkinter-based desktop GUI
+- Load multiple images and delete multiple selected images
+- Drag and drop when `tkinterdnd2` is available
+- Paste images from the clipboard
+- Grayscale trinarization using two thresholds
+- Default values
   - Lower threshold: `80`
   - Upper threshold: `180`
   - Middle gray level: `130`
-- スライダーと数値入力による1刻みの調整
-- 2しきい値版の大津法
-- 3値専用ノイズ除去
-  - Majority filter 3×3
-  - Mode filter 3×3
-- 黒 < グレー < 白の順序に対する3値モルフォロジー
+- One-step adjustment with sliders and numeric inputs
+- Two-threshold Otsu method
+- Trinary denoising
+  - Majority filter 3x3
+  - Mode filter 3x3
+- Ordered trinary morphology for black < gray < white
   - Dilation
   - Erosion
   - Opening
   - Closing
-- 白黒反転
-- クラス表示色の変更
+- Black/white inversion
+- Customizable class display colors
   - Black: RGB `(0, 0, 0)`
   - Gray: RGB `(120, 120, 120)`
   - White: RGB `(255, 255, 255)`
-- 1枚目の設定を全画像へ適用してロック
-- PNG / JPEG 保存
-- 全画像 + 集計CSVのZIP保存
-- ピクセル集計のCSV / Excel出力
-- PNGの透明度維持
-- JPEG出力時は透明部分を白背景へ合成
+- Apply the first image settings to all images and lock them
+- PNG / JPEG export
+- ZIP export containing all processed images and a summary CSV
+- Pixel statistics export to CSV / Excel
+- Preserve PNG transparency
+- Composite transparent areas onto a white background for JPEG output
 
 ## GUI
 
-左側に画像一覧と処理設定、右側に以下の3つのプレビューを表示します。
+The left side contains the image list and processing controls. The right side displays three previews:
 
 - Original image
 - Grayscale
 - Trinarization result
 
-複雑なタブ構成を使わず、1画面で主要操作を完結できる構成です。
+The main workflow is designed to fit into a single window without a complex tab structure.
 
 ## Requirements
 
@@ -55,7 +56,7 @@ Python / Tkinterで作成した、画像を黒・グレー・白の3クラスへ
 - openpyxl
 - tkinterdnd2
 
-Tkinterは通常、Windows版Pythonに含まれています。
+Tkinter is normally included with the Windows distribution of Python.
 
 ## Installation
 
@@ -71,30 +72,30 @@ pip install -r requirements.txt
 python main.py
 ```
 
-Tkinterが利用できるか確認する場合:
+To check whether Tkinter is available:
 
 ```powershell
 python -m tkinter
 ```
 
-## Build Windows executable
+## Build a Windows Executable
 
-ビルド用依存関係をインストールします。
+Install the build dependencies:
 
 ```powershell
 pip install -r requirements-dev.txt
 .\build_windows.bat
 ```
 
-成功すると以下が生成されます。
+If the build succeeds, the executable will be created at:
 
 ```text
 dist\TrinaryImageApp.exe
 ```
 
-`.exe` はリポジトリ本体へ直接コミットせず、GitHub Releasesで配布する構成を想定しています。
+The intended distribution method is GitHub Releases rather than committing the `.exe` directly to the repository.
 
-## Project structure
+## Project Structure
 
 ```text
 trinary-image-app/
@@ -107,39 +108,13 @@ trinary-image-app/
 └─ README.md
 ```
 
-## Main files
+## Main Files
 
-- `main.py` — Tkinter GUI、画像一覧、保存、CSV / Excel / ZIP出力
-- `image_processing.py` — グレースケール化、3値化、大津法、ノイズ除去、モルフォロジー、画像生成
-- `requirements.txt` — 実行時依存関係
-- `requirements-dev.txt` — Windows EXE作成用依存関係
-- `build_windows.bat` — PyInstallerによるWindows EXE作成
-
----
-
-## English
-
-A Python/Tkinter desktop application for classifying grayscale image pixels into three classes: black, gray, and white.
-
-The application supports Japanese / English UI switching, batch image processing, a two-threshold Otsu method, trinary denoising and morphology, customizable display colors, and CSV / Excel / ZIP export.
-
-### Run
-
-```powershell
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-python main.py
-```
-
-### Build an EXE
-
-```powershell
-pip install -r requirements-dev.txt
-.\build_windows.bat
-```
-
-The generated executable will be placed in `dist\TrinaryImageApp.exe`.
+- `main.py` — Tkinter GUI, image list management, saving, and CSV / Excel / ZIP export
+- `image_processing.py` — Grayscale conversion, trinarization, Otsu thresholding, denoising, morphology, and image generation
+- `requirements.txt` — Runtime dependencies
+- `requirements-dev.txt` — Dependencies for building the Windows executable
+- `build_windows.bat` — PyInstaller-based Windows executable build script
 
 ## License
 
